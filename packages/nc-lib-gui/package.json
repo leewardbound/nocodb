@@ -32,6 +32,8 @@
     "dayjs": "^1.10.4",
     "express": "^4.17.1",
     "serve-static": "^1.15.0",
-    "vuedraggable": "^2.24.3"
+    "vuedraggable": "^2.24.3",
+    "xc-lib": "^0.1.65",
+    "xc-lib-gui": "^0.1.168"
   }
 }
