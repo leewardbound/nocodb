@@ -3,8 +3,8 @@ version: '3.8'
 services:
   app:
     build: 
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
       args:
         # Update 'VARIANT' to pick an LTS version of Node.js: 18, 16, 14.
         # Append -bullseye or -buster to pin to an OS version.
@@ -12,10 +12,10 @@ services:
         VARIANT: 16-bullseye
 
     volumes:
-      - ..:/workspace:cached
+      - ..:/workspace
       
     # Overrides default command so things don't shut down after the process ends.
-    command: .devcontainer/init-devcontainer.sh && .devcontainer/start-services.sh
+    command: sleep infinity
 
     # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
     network_mode: service:db

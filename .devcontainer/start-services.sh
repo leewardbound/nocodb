@@ -2,9 +2,16 @@
 
 
 echo "Starting backend dev service..."
-cd /workspaces/nocodb/packages/nocodb && npm run watch:run &
+cd /workspace/packages/nocodb && npm run watch:run &
 
 sleep 2
-export NC_BACKEND_URL="https://${CODESPACE_NAME}-8080.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
+
+# Attempting to set NC_BACKEND_URL to /backend so that we can add a webpack devserver setting {proxy: {"/backend": "localhost:8080"}}
+# This will fix support for NocoDB in e.g. Github Codespaces, where the frontend is available at "project-id-3000.dev.github.io"
+# and the backend is at a different, dynamic hostname like "project-id-8080.dev.github.io"
+# export NC_BACKEND_URL="/backend"
+
+[[ -z "${CODESPACE_USERNAME}" ]] || export NC_BACKEND_URL="https://${CODESPACE_USERNAME}-8080.${GITHUB_CODESPACE_PUBLIC_PORT_HOSTNAME}"
+
 echo "Starting frontend dev service..."
-cd /workspaces/nocodb/packages/nc-gui && npm run dev
+cd /workspace/packages/nc-gui && npm run dev
